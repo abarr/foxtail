@@ -1,28 +1,55 @@
-<div class="">
-  <h4 class="font-thin text-4xl mt-10 pl-5 unerline">Recent Articles</h4>
-</div>
 
-
-<div class="grid gap-4 grid-cols-1  max-w-none ">
-  <div class="lg:col-span-1">
-
-     <%= for post <- @posts do %>
-    <div class="rounded-lg shadow-sm p-5 ">
-      <span class="text-gray-700  text-sm">
-        <%= post.author %>, <%= Datex.Date.format_date(post.date, "DAY_FULL, DATE MONTH_NAME_FULL YYYY") %>
-      </span><br />
-
-      <h3 class="mt-1 mb-2 text-3xl leading-7  text-gray-900 text-light">
-         <%= live_redirect post.title, to: Routes.post_show_path(@socket, :show, post) %>
-      </h3>
-
-      <span class="mt-3 text-base leading-6 text-gray-800 mb-10">
-        <%= post.description %>
-      </span>
-
+<div class="pb-20 px-4 sm:px-6 lg:pt-8 lg:pb-28 lg:px-8">
+  <div class="relative max-w-lg mx-auto lg:max-w-7xl">
+    <div>
+      <h2 class="text-3xl leading-9 tracking-tight font-extrabold text-white sm:text-4xl sm:leading-10">
+        Recent publications
+      </h2>
+    </div>
+    <div class=" grid gap-16 pt-12 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12">
+      <div class="border rounded p-5">
+        <div class="">
+          <a href="#" class="inline-block">
+            <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-indigo-100 text-indigo-800">
+              Article
+            </span>
+          </a>
+        </div>
+        <a href="#" class="block">
+          <h3 class="mt-4 text-xl leading-7 font-semibold text-white">
+            Boost your conversion rate
+          </h3>
+          <p class="mt-3 text-base leading-6 text-white">
+            Nullam risus blandit ac aliquam justo ipsum. Quam mauris volutpat massa dictumst amet. Sapien tortor lacus arcu.
+          </p>
+        </a>
+        <div class="mt-6 flex items-center">
+          <div class="flex-shrink-0">
+            <a href="#">
+              <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+            </a>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm leading-5 font-medium text-white">
+              <a href="#">
+                Paul York
+              </a>
+            </p>
+            <div class="flex text-sm leading-5 text-white">
+              <time datetime="2020-03-16">
+                Mar 16, 2020
+              </time>
+              <span class="mx-1">
+                &middot;
+              </span>
+              <span>
+                6 min read
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
-    <% end %>
   </div>
-
 </div>

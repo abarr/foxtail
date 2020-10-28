@@ -18,6 +18,7 @@ defmodule FoxtailWeb.Router do
     pipe_through :browser
 
     live "/", HomeLive.Index, :index
+    live "/blog", PostLive.Index, :index
     live "/posts/:id", PostLive.Show, :show
     live "/about", AboutLive.Index, :index
     live "/ref-data-demo", RefDataLive.Index, :index
