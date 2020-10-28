@@ -13,7 +13,7 @@ config :foxtail, FoxtailWeb.Endpoint,
     "https://www.foxtail.consulting",
     "http://www.foxtail.consulting:4001"
   ],
-  secret_key_base: "TtOqzHhD5+jMWQiY8+yQbqrr+83WsjySCOB+20kHAv9MlQ9DWhddskrMKcpMQuf"
+  secret_key_base: "VGI9E3EsAFbFcpUlslvM6CeebXF/nDp2gGBQZowtxzVRyclc3lN/kVfp3pf2Y4JF"
 
 # Do not print debug messages in production
 config :logger, level: :info
