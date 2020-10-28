@@ -17,7 +17,10 @@ defmodule FoxtailWeb.Router do
   scope "/", FoxtailWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    live "/", PostLive.Index, :index
+    live "/posts/:id", PostLive.Show, :show
+    live "/about", AboutLive.Index, :index
+    live "/ref-data-demo", RefDataLive.Index, :index
   end
 
   # Other scopes may use custom stacks.

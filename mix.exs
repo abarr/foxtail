@@ -43,7 +43,12 @@ defmodule Foxtail.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:earmark, "~> 1.4"},
+      {:makeup, "~> 1.0"},
+      {:makeup_elixir, "~> 0.14"},
+      {:datex, "~> 1.0"},
+
     ]
   end
 
