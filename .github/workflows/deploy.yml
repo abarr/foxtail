@@ -11,6 +11,10 @@ jobs:
     steps:
     - name: Deploy changes to server via ssh connection
       uses: appleboy/ssh-action@master
+      env: 
+        MAILGUN_KEY: ${{ secrets.MAILGUN_KEY }}
+        KEY_BASE: ${{ secrets.KEY_BASE }}
+        DOMAIN: ${{ secrets.DOMAIN }}
       with:
         host: "foxtail.consulting"
         username: andrew

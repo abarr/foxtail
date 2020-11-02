@@ -68,3 +68,5 @@ config :phoenix, :plug_init_mode, :runtime
 
 config :foxtail, Foxtail.Contact.Mailer,
   adapter: Swoosh.Adapters.Local
+
+

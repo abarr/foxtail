@@ -13,7 +13,13 @@ config :foxtail, FoxtailWeb.Endpoint,
     "https://www.foxtail.consulting",
     "http://www.foxtail.consulting:4001"
   ],
-  secret_key_base: "VGI9E3EsAFbFcpUlslvM6CeebXF/nDp2gGBQZowtxzVRyclc3lN/kVfp3pf2Y4JF"
+  secret_key_base: System.get_env("KEY_BASE")
+
+
+config :foxtail, Foxtail.Contact.Mailer,
+  adapter: Swoosh.Adapters.Mailgun,
+  api_key:  System.get_env("MAILGUN_KEY"),
+  domain: System.get_env("DOMAIN")
 
 # Do not print debug messages in production
 config :logger, level: :info

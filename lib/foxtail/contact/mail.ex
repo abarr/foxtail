@@ -3,7 +3,7 @@ defmodule Foxtail.Contact.Mail do
   alias Foxtail.Contact.Mailer
 
   def send(name, email, message) do
-    to_email = {"Andrew", "andrew@foctail.consulting"}
+    to_email = {"Andrew", "andrew@foxtail.consulting"}
 
     new()
     |> to(to_email)
