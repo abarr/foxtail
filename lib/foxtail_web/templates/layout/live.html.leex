@@ -1,13 +1,13 @@
-<div class="relative overflow-hidden  bg-gray-800">
-  <div class="relative pt-6 pb-12 sm:pb-32">
+<div x-data="{ mobileOpen: false }" class="relative overflow-hidden  bg-gray-800"  >
+  <div class="relative pt-6 pb-12 sm:pb-32" >
     <nav class="relative max-w-screen-xl mx-auto flex items-center justify-between px-4 sm:px-6">
       <div class="flex items-center flex-1">
         <div class="flex items-center justify-between w-full md:w-auto">
           <a href="/" aria-label="Home">
             <i class="text-white fad fa-chart-network fa-3x"></i>
           </a>
-          <div class="-mr-2 flex items-center md:hidden">
-            <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:bg-gray-700 focus:outline-none focus:bg-gray-700 transition duration-150 ease-in-out" id="main-menu" aria-label="Main menu" aria-haspopup="true">
+          <div  class="-mr-2 flex items-center md:hidden">
+            <button @click="mobileOpen = !mobileOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:bg-gray-700 focus:outline-none focus:bg-gray-700 transition duration-150 ease-in-out" id="main-menu" aria-label="Main menu" aria-haspopup="true">
               <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
@@ -34,16 +34,17 @@
         From: "opacity-100 scale-100"
         To: "opacity-0 scale-95"
     -->
-    <div class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
-      <div class="rounded-lg shadow-md">
+    <div :class="{'block': mobileOpen, 'hidden': !mobileOpen}" class="hidden">
+    <div  class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right">
+      <div class="rounded-lg shadow-md" >
         <div class="rounded-lg bg-white shadow-xs overflow-hidden" role="menu" aria-orientation="vertical" aria-labelledby="main-menu">
           <div class="px-5 pt-4 flex items-center justify-between">
             <div>
               <i class="text-black fad fa-chart-network fa-3x"></i>
             </div>
-            <div class="-mr-2">
-              <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Close menu">
-                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+            <div class="-mr-2"  >
+              <button @click="mobileOpen = !mobileOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Close menu">
+                <svg  class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
@@ -58,6 +59,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
 
     <main class=" sm:mt-16 md:mt-20 lg:mt-0 ">

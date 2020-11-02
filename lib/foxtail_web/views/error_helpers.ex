@@ -11,11 +11,13 @@ defmodule FoxtailWeb.ErrorHelpers do
   def error_tag(form, field) do
     Enum.map(Keyword.get_values(form.errors, field), fn error ->
       content_tag(:span, translate_error(error),
-        class: "invalid-feedback",
+        class: "invalid-feedback pt-5 mb-4 text-sm text-red-600 ",
         phx_feedback_for: input_id(form, field)
       )
     end)
   end
+
+
 
   @doc """
   Translates an error message using gettext.
