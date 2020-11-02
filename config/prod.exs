@@ -3,7 +3,7 @@ use Mix.Config
 config :foxtail, FoxtailWeb.Endpoint,
   server: true,
   http: [
-    port: String.to_integer(System.get_env("PORT") || "4001"),
+    port: String.to_integer(System.get_env("PORT") || "4000"),
     transport_options: [socket_opts: [:inet6]]
   ],
   url: [host: "foxtail.consulting", port: 80],
@@ -13,7 +13,8 @@ config :foxtail, FoxtailWeb.Endpoint,
     "https://www.foxtail.consulting",
     "http://www.foxtail.consulting:4001"
   ],
-  secret_key_base: System.get_env("KEY_BASE")
+  secret_key_base: System.get_env("KEY_BASE"),
+  live_view: [signing_salt: System.get_env("SIGNING_SALT")]
 
 
 config :foxtail, Foxtail.Contact.Mailer,

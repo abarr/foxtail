@@ -21,6 +21,8 @@ jobs:
           export MAILGUN_KEY=${{ secrets.MAILGUN_KEY }}
           export KEY_BASE=${{ secrets.KEY_BASE }}
           export DOMAIN=${{ secrets.DOMAIN }}
+          export SIGNING_SALT=${{ secrets.SIGNING_SALT }}
+          export PORT=${{ secrets.PORT }}
           cd foxtail
           git pull origin master
           mix deps.get --only prod 
