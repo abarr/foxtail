@@ -8,10 +8,6 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    env: 
-      MAILGUN_KEY: ${{ secrets.MAILGUN_KEY }}
-      KEY_BASE: ${{ secrets.KEY_BASE }}
-      DOMAIN: ${{ secrets.DOMAIN }}
     steps:
     - name: Deploy changes to server via ssh connection
       uses: appleboy/ssh-action@master
@@ -22,6 +18,9 @@ jobs:
         key: ${{ secrets.FOXTAIL_SECRET }}
         port: 22
         script: |
+          export MAILGUN_KEY=${{ secrets.MAILGUN_KEY }}
+          export KEY_BASE=${{ secrets.KEY_BASE }}
+          export DOMAIN=${{ secrets.DOMAIN }}
           cd foxtail
           git pull origin master
           mix deps.get --only prod 
