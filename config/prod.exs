@@ -20,7 +20,8 @@ config :foxtail, FoxtailWeb.Endpoint,
 config :foxtail, Foxtail.Contact.Mailer,
   adapter: Swoosh.Adapters.Mailgun,
   api_key:  System.get_env("MAILGUN_KEY"),
-  domain: System.get_env("DOMAIN")
+  domain: System.get_env("DOMAIN"),
+  to_email: System.get_env("EMAIL")
 
 # Do not print debug messages in production
 config :logger, level: :info

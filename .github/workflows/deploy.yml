@@ -23,6 +23,7 @@ jobs:
           export DOMAIN=${{ secrets.DOMAIN }}
           export SIGNING_SALT=${{ secrets.SIGNING_SALT }}
           export PORT=${{ secrets.PORT }}
+          export EMAIL=${{ secrets.EMAIL }}
           cd foxtail
           git pull origin master
           mix deps.get --only prod 

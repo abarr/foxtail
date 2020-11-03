@@ -3,7 +3,7 @@ defmodule Foxtail.Contact.Mail do
   alias Foxtail.Contact.Mailer
 
   def send(name, email, message) do
-    to_email = {"Andrew", "andrew@foxtail.consulting"}
+    to_email = Application.get_env(:foxtail, Foxtail.Contact.Mailer)[:to_email]
 
     new()
     |> to(to_email)

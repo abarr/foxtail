@@ -67,6 +67,5 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 config :foxtail, Foxtail.Contact.Mailer,
-  adapter: Swoosh.Adapters.Local
-
-
+  adapter: Swoosh.Adapters.Local,
+  to_email: "andrew@foxtail.consulting"
