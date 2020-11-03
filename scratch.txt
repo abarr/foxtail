@@ -1,6 +1,4 @@
-<main class=" sm:mt-16 md:mt-20 lg:mt-0 ">
-<div class="mx-auto max-w-screen-xl">
-  <div class="bg-white grid gap-16 pt-12 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12">
+<div class=" grid gap-16 pt-12 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12">
     <%= for post <- @posts do %>
 
       <div class="border rounded p-5">
@@ -32,5 +30,3 @@
 
      <% end %>
  </div>
- </div>
-</main>

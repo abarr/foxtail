@@ -1,6 +1,6 @@
-<div x-data="{ mobileOpen: false }" class="relative overflow-hidden  bg-gray-800"  >
-  <div class="relative pt-6 pb-12 sm:pb-32" >
-    <nav class="relative max-w-screen-xl mx-auto flex items-center justify-between px-4 sm:px-6">
+<div x-data="{ mobileOpen: false }" class="relative overflow-hidden  "  >
+  <div class="relative pt-6 pb-6 bg-gray-800" >
+    <nav class="relative max-w-screen-xl mx-auto flex items-center justify-between px-4 sm:px-6 ">
       <div class="flex items-center flex-1">
         <div class="flex items-center justify-between w-full md:w-auto">
           <a href="/" aria-label="Home">
@@ -35,35 +35,34 @@
         To: "opacity-0 scale-95"
     -->
     <div :class="{'block': mobileOpen, 'hidden': !mobileOpen}" class="hidden">
-    <div  class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right">
-      <div class="rounded-lg shadow-md" >
-        <div class="rounded-lg bg-white shadow-xs overflow-hidden" role="menu" aria-orientation="vertical" aria-labelledby="main-menu">
-          <div class="px-5 pt-4 flex items-center justify-between">
+      <div  class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right">
+        <div class="rounded-lg shadow-md" >
+          <div class="rounded-lg bg-white shadow-xs overflow-hidden" role="menu" aria-orientation="vertical" aria-labelledby="main-menu">
+            <div class="px-5 pt-4 flex items-center justify-between">
+              <div>
+                <i class="text-black fad fa-chart-network fa-3x"></i>
+              </div>
+              <div class="-mr-2"  >
+                <button @click="mobileOpen = !mobileOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Close menu">
+                  <svg  class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="space-y-1 px-2 pt-2 pb-3">
+              <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Blog</a>
+              <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">About</a>
+            </div>
             <div>
-              <i class="text-black fad fa-chart-network fa-3x"></i>
+              <%# Log in button on mobile %>
             </div>
-            <div class="-mr-2"  >
-              <button @click="mobileOpen = !mobileOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Close menu">
-                <svg  class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div class="space-y-1 px-2 pt-2 pb-3">
-            <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Blog</a>
-            <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">About</a>
-          </div>
-          <div>
-            <%# Log in button on mobile %>
           </div>
         </div>
       </div>
     </div>
     </div>
+     <%= @inner_content %>
+    
 
-    <main class=" sm:mt-16 md:mt-20 lg:mt-0 ">
-      <%= @inner_content %>
-    </main>
-  </div>
 </div>
