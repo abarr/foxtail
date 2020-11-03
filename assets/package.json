@@ -16,7 +16,6 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@fortawesome/fontawesome-pro": "^5.15.1",
-    "@fullhuman/postcss-purgecss": "^2.3.0",
     "@tailwindcss/ui": "^0.3.0",
     "alpinejs": "^2.3.3",
     "babel-loader": "^8.0.0",
