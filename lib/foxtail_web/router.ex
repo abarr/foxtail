@@ -14,11 +14,11 @@ defmodule FoxtailWeb.Router do
     plug :accepts, ["json"]
   end
 
-  if Mix.env == :dev do
+  if Mix.env() == :dev do
     scope "/dev" do
       pipe_through [:browser]
 
-      forward "/mailbox", Plug.Swoosh.MailboxPreview, [base_path: "/dev/mailbox"]
+      forward "/mailbox", Plug.Swoosh.MailboxPreview, base_path: "/dev/mailbox"
     end
   end
 
@@ -31,8 +31,6 @@ defmodule FoxtailWeb.Router do
     live "/about", AboutLive.Index, :index
     live "/ref-data-demo", RefDataLive.Index, :index
   end
-
-
 
   # Other scopes may use custom stacks.
   # scope "/api", FoxtailWeb do

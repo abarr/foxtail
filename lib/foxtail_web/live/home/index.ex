@@ -4,9 +4,8 @@ defmodule FoxtailWeb.HomeLive.Index do
   @impl true
   def mount(_params, _session, socket) do
     {:ok,
-      socket
-      |> assign(:page_title, page_title(socket.assigns.live_action))
-    }
+     socket
+     |> assign(:page_title, page_title(socket.assigns.live_action))}
   end
 
   defp page_title(:index), do: "Foxtail"

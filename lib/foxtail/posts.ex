@@ -55,8 +55,6 @@ defmodule Foxtail.Posts do
 
   """
   def get_latest_post!() do
-    Enum.at(list_posts(),0)
+    Enum.at(list_posts(), 0)
   end
-
-
 end

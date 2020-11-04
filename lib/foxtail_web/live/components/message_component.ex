@@ -2,6 +2,8 @@ defmodule FoxtailWeb.Components.MessageComponent do
   use FoxtailWeb, :live_component
   alias Foxtail.Contact.{Message, Mail}
 
+  @catcha_notations ["+", "x"]
+
   @impl true
   def render(assigns) do
     ~L"""
@@ -40,10 +42,27 @@ defmodule FoxtailWeb.Components.MessageComponent do
           <%= error_tag f, :text %>
         </div>
 
-        <div>
+        <div class="rounded-md  bg-gray-200 p-2">
+          <div class="rounded-md">
+            <div class="  grid grid-cols-2">
+              <div class="text-center mr-4">
+                <%= @v1 %>
+                <%= @operation %>
+                <%= @v2 %> =
+              </div>
+              <div>
+              <%= text_input f, :answer, [phx_debounce: "blur", class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 placeholder-text-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5", placeholder: "Answer"] %>
+              </div>
 
+            </div>
+          </div>
+
+        </div>
+        <span><%= error_tag f, :answer %></span>
+
+        <div>
           <span class="block w-full rounded-md shadow-sm">
-            <%= submit "Send Message", phx_disable_with: "Saving ....", class: "w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition duration-150 ease-in-out" %>
+            <%= submit "Send Message", phx_disable_with: "Saving ....", class: " w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition duration-150 ease-in-out" %>
           </span>
 
         </div>
@@ -53,34 +72,68 @@ defmodule FoxtailWeb.Components.MessageComponent do
   end
 
   def mount(_assigns, socket) do
-    {:ok, socket }
+    {:ok, socket}
   end
 
   @impl true
   def update(assigns, socket) do
     changeset = Message.changeset(%Message{})
+    operation = Enum.random(@catcha_notations)
+    v1 = :rand.uniform(9)
+    v2 = :rand.uniform(9)
+
     {:ok,
      socket
      |> assign(assigns)
-     |> assign(:changeset, changeset)}
+     |> assign(:changeset, changeset)
+     |> assign(:v1, v1)
+     |> assign(:v2, v2)
+     |> assign(:operation, operation)}
   end
 
   @impl true
-  def handle_event("send_message", %{"message" => %{ "name" => name, "email" => email, "text" => message}}, socket) do
+  def handle_event(
+        "send_message",
+        %{
+          "message" => %{"name" => name, "email" => email, "text" => message, "answer" => answer}
+        },
+        socket
+      ) do
     changeset = Message.changeset(%Message{})
-    case Mail.send(name, email, message) do
-       {:ok, _msg } ->
-          {:noreply,
-              socket
-              |> put_flash(:success, "Your message is on its way!")
-              |> assign(:changeset, changeset)
-          }
-       {:error, _msg } ->
-          {:noreply,
-              socket
-              |> put_flash(:error, "Whoops! Please check your details")
-              |> assign(:changeset, changeset)
-          }
+    operation = Enum.random(@catcha_notations)
+    v1 = :rand.uniform(9)
+    v2 = :rand.uniform(9)
+
+    cond do
+      !captcha?(socket.assigns.operation, answer, socket) ->
+        {:noreply,
+         socket
+         |> put_flash(:error, "Whoops! Please check your details")
+         |> assign(:changeset, changeset)
+         |> assign(:v1, v1)
+         |> assign(:v2, v2)
+         |> assign(:operation, operation)}
+
+      true ->
+        case Mail.send(name, email, message) do
+          {:ok, _msg} ->
+            {:noreply,
+             socket
+             |> put_flash(:success, "Your message is on its way!")
+             |> assign(:changeset, changeset)
+             |> assign(:v1, v1)
+             |> assign(:v2, v2)
+             |> assign(:operation, operation)}
+
+          {:error, _msg} ->
+            {:noreply,
+             socket
+             |> put_flash(:error, "Whoops! Please check your details")
+             |> assign(:changeset, changeset)
+             |> assign(:v1, v1)
+             |> assign(:v2, v2)
+             |> assign(:operation, operation)}
+        end
     end
   end
 
@@ -92,9 +145,24 @@ defmodule FoxtailWeb.Components.MessageComponent do
       |> Map.put(:action, :validate)
 
     {:noreply,
-      socket
-      |> assign(:changeset, changeset)
-      |> clear_flash
-    }
+     socket
+     |> assign(:changeset, changeset)
+     |> clear_flash}
   end
+
+  defp captcha?(_, "", _), do: false
+  defp captcha?("*", answer, %{assigns: %{v1: v1, v2: v2}}) do
+    cond do
+      v1 * v2 != String.to_integer(answer) -> false
+      true -> true
+    end
+  end
+  defp captcha?("+", answer, %{assigns: %{v1: v1, v2: v2}}) do
+
+    cond do
+      v1 + v2 != String.to_integer(answer) -> false
+      true -> true
+    end
+  end
+  defp captcha?(_, _answer, _socket), do: false
 end

@@ -16,10 +16,9 @@ config :foxtail, FoxtailWeb.Endpoint,
   secret_key_base: System.get_env("KEY_BASE"),
   live_view: [signing_salt: System.get_env("SIGNING_SALT")]
 
-
 config :foxtail, Foxtail.Contact.Mailer,
   adapter: Swoosh.Adapters.Mailgun,
-  api_key:  System.get_env("MAILGUN_KEY"),
+  api_key: System.get_env("MAILGUN_KEY"),
   domain: System.get_env("DOMAIN"),
   to_email: System.get_env("EMAIL")
 
