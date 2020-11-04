@@ -26,5 +26,5 @@ defmodule FoxtailWeb.PostLive.Index do
     Posts.list_posts()
   end
 
-  defp page_title(:index), do: "Andrew Barr"
+  defp page_title(:index), do: "Foxtail"
 end
