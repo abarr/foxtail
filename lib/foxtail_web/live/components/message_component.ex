@@ -50,7 +50,7 @@ defmodule FoxtailWeb.Components.MessageComponent do
                 <%= @v2 %> =
               </div>
               <div>
-              <%= text_input f, :answer, [phx_debounce: "blur", class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 placeholder-text-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5", placeholder: "Answer"] %>
+              <%= text_input f, :answer, [ class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 placeholder-text-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5", placeholder: "Answer"] %>
               </div>
 
             </div>
@@ -76,63 +76,60 @@ defmodule FoxtailWeb.Components.MessageComponent do
   @impl true
   def update(assigns, socket) do
     changeset = Message.changeset(%Message{})
-    operation = Enum.random(@catcha_notations)
-    v1 = :rand.uniform(9)
-    v2 = :rand.uniform(9)
 
     {:ok,
      socket
      |> assign(assigns)
      |> assign(:changeset, changeset)
-     |> assign(:v1, v1)
-     |> assign(:v2, v2)
-     |> assign(:operation, operation)}
+     |> assign_captcha()}
   end
 
   @impl true
-  def handle_event(
-        "send_message",
-        %{
-          "message" => %{"name" => name, "email" => email, "text" => message, "answer" => answer}
-        },
-        socket
-      ) do
-    changeset = Message.changeset(%Message{})
-    operation = Enum.random(@catcha_notations)
-    v1 = :rand.uniform(9)
-    v2 = :rand.uniform(9)
+  def handle_event( "send_message",%{ "message" => message}, socket) do
+
+    changeset =
+      %Message{}
+      |> Message.changeset(message)
+      |> Map.put(:action, :validate)
+
+    %{"name" => name, "email" => email, "text" => message, "answer" => answer} = message
 
     cond do
       !captcha?(socket.assigns.operation, answer, socket) ->
         {:noreply,
-         socket
-         |> put_flash(:error, "Whoops! Please check your details")
-         |> assign(:changeset, changeset)
-         |> assign(:v1, v1)
-         |> assign(:v2, v2)
-         |> assign(:operation, operation)}
+        socket
+        |> clear_flash()
+        |> put_flash(:error, "Whoops! Please check your details")
+        |> assign(:changeset, changeset)
+        |> assign_captcha()
+      }
 
-      true ->
+      changeset.valid? && captcha?(socket.assigns.operation, answer, socket) ->
         case Mail.send(name, email, message) do
           {:ok, _msg} ->
             {:noreply,
-             socket
-             |> put_flash(:success, "Your message is on its way!")
-             |> assign(:changeset, changeset)
-             |> assign(:v1, v1)
-             |> assign(:v2, v2)
-             |> assign(:operation, operation)}
+            socket
+
+            |> put_flash(:success, "Your message is on its way!")
+            |> assign(:changeset, Message.changeset(%Message{}))
+            |> assign_captcha()}
 
           {:error, _msg} ->
             {:noreply,
-             socket
-             |> put_flash(:error, "Whoops! Please check your details")
-             |> assign(:changeset, changeset)
-             |> assign(:v1, v1)
-             |> assign(:v2, v2)
-             |> assign(:operation, operation)}
+            socket
+            |> clear_flash()
+            |> put_flash(:error, "Whoops! Please check your details")
+            |> assign(:changeset, changeset)
+            |> assign_captcha()}
         end
+
+      true ->
+        {:noreply,
+            socket
+            |> assign(:changeset, changeset)
+            |> assign_captcha()}
     end
+
   end
 
   @impl true
@@ -143,24 +140,34 @@ defmodule FoxtailWeb.Components.MessageComponent do
       |> Map.put(:action, :validate)
 
     {:noreply,
-     socket
-     |> assign(:changeset, changeset)
-     |> clear_flash}
+      socket
+      |> assign(:changeset, changeset)
+      |> clear_flash()
+    }
+  end
+
+  defp assign_captcha(socket) do
+    socket
+    |> assign(:v1, :rand.uniform(9))
+    |> assign(:v2, :rand.uniform(9))
+    |> assign(:operation, Enum.random(@catcha_notations))
   end
 
   defp captcha?(_, "", _), do: false
-  defp captcha?("*", answer, %{assigns: %{v1: v1, v2: v2}}) do
+
+  defp captcha?("x", answer, %{assigns: %{v1: v1, v2: v2}}) do
     cond do
       v1 * v2 != String.to_integer(answer) -> false
       true -> true
     end
   end
-  defp captcha?("+", answer, %{assigns: %{v1: v1, v2: v2}}) do
 
+  defp captcha?("+", answer, %{assigns: %{v1: v1, v2: v2}}) do
     cond do
       v1 + v2 != String.to_integer(answer) -> false
       true -> true
     end
   end
+
   defp captcha?(_, _answer, _socket), do: false
 end
