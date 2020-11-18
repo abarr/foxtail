@@ -35,8 +35,8 @@ defmodule Foxtail.MixProject do
     [
       {:phoenix, "~> 1.5.6"},
       {:phoenix_ecto, "~> 4.1"},
-      {:ecto_sql, "~> 3.0"},
-      {:phoenix_live_view, "~> 0.14.6"},
+      {:ecto_sql, "~> 3.5"},
+      {:phoenix_live_view, "~> 0.14.8"},
       {:floki, ">= 0.27.0", only: :test},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.3", only: :dev},
@@ -50,7 +50,7 @@ defmodule Foxtail.MixProject do
       {:makeup, "~> 1.0"},
       {:makeup_elixir, "~> 0.14"},
       {:datex, "~> 1.0"},
-      {:swoosh, "~> 1.0"},
+      {:swoosh, "~> 1.1"},
       {:hackney, "~> 1.16"}
     ]
   end
