@@ -99,7 +99,7 @@ defmodule FoxtailWeb.Components.MessageComponent do
         {:noreply,
         socket
         |> clear_flash()
-        |> put_flash(:error, "Whoops! Please check your details")
+        |> put_flash(:error, "Doh! No good at math? Try again")
         |> assign(:changeset, changeset)
         |> assign_captcha()
       }
@@ -109,7 +109,6 @@ defmodule FoxtailWeb.Components.MessageComponent do
           {:ok, _msg} ->
             {:noreply,
             socket
-
             |> put_flash(:success, "Your message is on its way!")
             |> assign(:changeset, Message.changeset(%Message{}))
             |> assign_captcha()}

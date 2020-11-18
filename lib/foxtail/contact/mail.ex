@@ -8,7 +8,7 @@ defmodule Foxtail.Contact.Mail do
     new()
     |> to(to_email)
     |> from({name, email})
-    |> subject("Message from website")
+    |> subject("Message from foxtail website")
     |> text_body(message)
     |> Mailer.deliver()
   end

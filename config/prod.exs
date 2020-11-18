@@ -9,9 +9,7 @@ config :foxtail, FoxtailWeb.Endpoint,
   url: [host: "foxtail.consulting", port: 80],
   check_origin: [
     "https://foxtail.consulting",
-    "http://foxtail.consulting:4001",
-    "https://www.foxtail.consulting",
-    "http://www.foxtail.consulting:4001"
+    "https://www.foxtail.consulting"
   ],
   secret_key_base: System.get_env("KEY_BASE"),
   live_view: [signing_salt: System.get_env("SIGNING_SALT")]
